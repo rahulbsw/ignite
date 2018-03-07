@@ -37,6 +37,11 @@ import org.apache.ignite.internal.client.impl.GridClientFutureCallback;
 import org.apache.ignite.internal.util.typedef.F;
 import org.jetbrains.annotations.Nullable;
 
+import static org.apache.ignite.internal.client.GridClientCacheFlag.KEEP_BINARIES;
+import static org.apache.ignite.internal.client.GridClientCacheFlag.KEEP_BINARIES_MASK;
+import static org.apache.ignite.internal.client.GridClientCacheFlag.SKIP_STORE;
+import static org.apache.ignite.internal.client.GridClientCacheFlag.SKIP_STORE_MASK;
+
 /**
  * Facade for all possible network communications between client and server. Introduced to hide
  * protocol implementation (TCP, HTTP) from client code.
@@ -114,8 +119,11 @@ public abstract class GridClientConnection {
     public static int encodeCacheFlags(Collection<GridClientCacheFlag> flagSet) {
         int bits = 0;
 
-        if (flagSet.contains(GridClientCacheFlag.SKIP_STORE))
-            bits |= 1;
+        if (flagSet.contains(SKIP_STORE))
+            bits |= SKIP_STORE_MASK;
+
+        if (flagSet.contains(KEEP_BINARIES))
+            bits |= KEEP_BINARIES_MASK;
 
         return bits;
     }

@@ -49,4 +49,10 @@ public enum GridClientCacheFlag {
     public static GridClientCacheFlag fromOrdinal(int ord) {
         return ord >= 0 && ord < VALS.length ? VALS[ord] : null;
     }
+
+    /** */
+    public static final int SKIP_STORE_MASK = 0b1;
+
+    /** */
+    public static final int KEEP_BINARIES_MASK = 0b10;
 }
